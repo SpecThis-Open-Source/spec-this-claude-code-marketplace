@@ -1,0 +1,13 @@
+{
+  "name": "hello-specthis",
+  "version": "1.0.0",
+  "description": "Starter plugin that proves the SpecThis marketplace install path end-to-end.",
+  "author": {
+    "name": "SpecThis",
+    "email": "support@specthis.ai"
+  },
+  "homepage": "https://specthis.ai",
+  "repository": "https://github.com/SpecThis-Open-Source/spec-this-claude-code-marketplace",
+  "license": "MIT",
+  "keywords": ["specthis", "starter", "hello-world"]
+}

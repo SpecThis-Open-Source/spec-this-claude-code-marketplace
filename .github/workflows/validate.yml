@@ -1,0 +1,67 @@
+name: Validate marketplace
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate marketplace + plugin manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate .claude-plugin/marketplace.json
+        run: |
+          set -euo pipefail
+          MJ=.claude-plugin/marketplace.json
+          test -f "$MJ" || { echo "::error::$MJ is missing"; exit 1; }
+          jq -e . "$MJ" >/dev/null || { echo "::error::$MJ is not valid JSON"; exit 1; }
+          jq -e '.name | type == "string" and length > 0' "$MJ" >/dev/null \
+            || { echo "::error::$MJ missing required field: name"; exit 1; }
+          jq -e '.owner.name | type == "string" and length > 0' "$MJ" >/dev/null \
+            || { echo "::error::$MJ missing required field: owner.name"; exit 1; }
+          jq -e '.plugins | type == "array" and length > 0' "$MJ" >/dev/null \
+            || { echo "::error::$MJ plugins[] must be a non-empty array"; exit 1; }
+          echo "marketplace.json OK"
+
+      - name: Validate each plugin entry resolves to a plugin.json with required fields
+        run: |
+          set -euo pipefail
+          MJ=.claude-plugin/marketplace.json
+
+          # Iterate plugin entries; each must have name + source (string starting with ./)
+          jq -c '.plugins[]' "$MJ" | while read -r entry; do
+            NAME=$(echo "$entry" | jq -r '.name // empty')
+            SRC=$(echo "$entry" | jq -r '.source // empty')
+
+            [ -n "$NAME" ] || { echo "::error::plugin entry missing name: $entry"; exit 1; }
+            [ -n "$SRC" ]  || { echo "::error::plugin entry $NAME missing source"; exit 1; }
+
+            case "$SRC" in
+              ./*) ;;
+              *) echo "::error::plugin $NAME source must be a relative path starting with ./ (got: $SRC)"; exit 1 ;;
+            esac
+
+            PJ="$SRC/.claude-plugin/plugin.json"
+            test -f "$PJ" || { echo "::error::plugin $NAME: $PJ does not exist"; exit 1; }
+            jq -e . "$PJ" >/dev/null || { echo "::error::$PJ is not valid JSON"; exit 1; }
+            jq -e '.name | type == "string" and length > 0' "$PJ" >/dev/null \
+              || { echo "::error::$PJ missing required field: name"; exit 1; }
+            jq -e '.version | type == "string" and length > 0' "$PJ" >/dev/null \
+              || { echo "::error::$PJ missing required field: version"; exit 1; }
+
+            # Names must match between marketplace entry and plugin.json
+            PJ_NAME=$(jq -r '.name' "$PJ")
+            [ "$PJ_NAME" = "$NAME" ] \
+              || { echo "::error::name mismatch: marketplace entry '$NAME' vs $PJ '$PJ_NAME'"; exit 1; }
+
+            echo "plugin $NAME OK ($PJ)"
+          done
