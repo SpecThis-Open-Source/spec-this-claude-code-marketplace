@@ -9,5 +9,10 @@
   "homepage": "https://specthis.ai",
   "repository": "https://github.com/SpecThis-Open-Source/spec-this-claude-code-marketplace",
   "license": "MIT",
-  "keywords": ["specthis", "planning", "plan-scaffolding", "spec"]
+  "keywords": [
+    "specthis",
+    "planning",
+    "plan-scaffolding",
+    "spec"
+  ]
 }
