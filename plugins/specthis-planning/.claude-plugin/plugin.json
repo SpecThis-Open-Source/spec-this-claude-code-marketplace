@@ -1,7 +1,7 @@
 {
-  "name": "hello-specthis",
+  "name": "specthis-planning",
   "version": "1.0.0",
-  "description": "Starter plugin that proves the SpecThis marketplace install path end-to-end.",
+  "description": "Guides Claude Code through the full SpecThis plan scaffolding flow — goal, open questions, workflow, acceptance, and work items.",
   "author": {
     "name": "SpecThis",
     "email": "support@specthis.ai"
@@ -9,5 +9,5 @@
   "homepage": "https://specthis.ai",
   "repository": "https://github.com/SpecThis-Open-Source/spec-this-claude-code-marketplace",
   "license": "MIT",
-  "keywords": ["specthis", "starter", "hello-world"]
+  "keywords": ["specthis", "planning", "plan-scaffolding", "spec"]
 }

@@ -10,9 +10,9 @@
   },
   "plugins": [
     {
-      "name": "hello-specthis",
-      "source": "./plugins/hello-specthis",
-      "description": "Starter plugin that proves the SpecThis marketplace install path end-to-end."
+      "name": "specthis-planning",
+      "source": "./plugins/specthis-planning",
+      "description": "Guides Claude Code through the full SpecThis plan scaffolding flow — goal, open questions, workflow, acceptance, and work items."
     }
   ]
 }

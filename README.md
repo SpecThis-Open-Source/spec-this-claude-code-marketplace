@@ -2,8 +2,6 @@
 
 A [Claude Code](https://code.claude.com) plugin marketplace published by [SpecThis](https://specthis.ai).
 
-> **Status:** MVP. Currently ships one starter plugin (`hello-specthis`) so you can verify the install path. Real plugins land in subsequent releases.
-
 ## Prerequisites
 
 - [Claude Code](https://code.claude.com) installed and authenticated.
@@ -18,19 +16,13 @@ claude plugin marketplace add SpecThis-Open-Source/spec-this-claude-code-marketp
 
 You should see `specthis` listed in `claude plugin marketplace list`.
 
-## Install the starter plugin
+## Install a plugin
 
 ```
-claude plugin install hello-specthis@specthis
+claude plugin install specthis-planning@specthis
 ```
 
-Start a Claude Code session, then invoke the bundled skill:
-
-```
-/hello-world
-```
-
-You should see a SpecThis greeting confirming the install path is wired up end-to-end.
+Start a Claude Code session, then ask Claude to plan a feature — the skill walks through the SpecThis plan scaffolding flow (goal, open questions, workflow, acceptance, work items).
 
 ## Update
 
@@ -45,7 +37,7 @@ Claude Code resolves each plugin's version from its `plugin.json`, so updates on
 ## Uninstall
 
 ```
-claude plugin uninstall hello-specthis@specthis
+claude plugin uninstall specthis-planning@specthis
 claude plugin marketplace remove specthis
 ```
 
@@ -53,7 +45,7 @@ claude plugin marketplace remove specthis
 
 | Plugin | Description |
 | --- | --- |
-| [`hello-specthis`](./plugins/hello-specthis) | Starter plugin that proves the install path. |
+| [`specthis-planning`](./plugins/specthis-planning) | Guides Claude Code through the full SpecThis plan scaffolding flow. |
 
 ## Contributing
 
@@ -63,7 +55,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md). All commits must follow [Conventional 
 
 - Push to `main` → `release.yml` runs `semantic-release`.
 - Conventional commits drive the version bump (`feat:` → minor, `fix:` → patch, `BREAKING CHANGE:` → major).
-- The plugin's `plugin.json` `version` field is bumped, a git tag (`hello-specthis@vX.Y.Z`) is created, and a GitHub Release is published with auto-generated notes.
+- The plugin's `plugin.json` `version` field is bumped, a git tag (`specthis-planning@vX.Y.Z`) is created, and a GitHub Release is published with auto-generated notes.
 
 ## More info
 
