@@ -1,18 +1,18 @@
 /**
  * semantic-release config for the SpecThis Claude Code marketplace.
  *
- * Today this repo ships ONE plugin (hello-specthis), so we run a single
+ * Today this repo ships ONE plugin (specthis-planning), so we run a single
  * semantic-release pipeline that bumps the plugin's plugin.json `version`
- * field and tags `hello-specthis@vX.Y.Z`. When a second plugin lands, switch
+ * field and tags `specthis-planning@vX.Y.Z`. When a second plugin lands, switch
  * to per-plugin scoped releases (e.g. semantic-release-monorepo or scoped
  * commit analyzers) — see CONTRIBUTING.md.
  */
 
-const PLUGIN_MANIFEST = "plugins/hello-specthis/.claude-plugin/plugin.json";
+const PLUGIN_MANIFEST = "plugins/specthis-planning/.claude-plugin/plugin.json";
 
 module.exports = {
   branches: ["main"],
-  tagFormat: "hello-specthis@v${version}",
+  tagFormat: "specthis-planning@v${version}",
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
@@ -29,7 +29,7 @@ module.exports = {
       {
         assets: ["CHANGELOG.md", PLUGIN_MANIFEST],
         message:
-          "chore(release): hello-specthis@v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+          "chore(release): specthis-planning@v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
       },
     ],
     "@semantic-release/github",

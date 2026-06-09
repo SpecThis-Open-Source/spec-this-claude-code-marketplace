@@ -6,13 +6,13 @@ All commits must follow [Conventional Commits 1.0.0](https://www.conventionalcom
 
 | Type | Effect | Example |
 | --- | --- | --- |
-| `feat:` | minor bump (1.X.0) | `feat(hello-specthis): add greeting variant for evening sessions` |
-| `fix:` | patch bump (1.0.X) | `fix(hello-specthis): correct typo in skill description` |
+| `feat:` | minor bump (1.X.0) | `feat(specthis-planning): add support for sub-plans` |
+| `fix:` | patch bump (1.0.X) | `fix(specthis-planning): correct MCP tool prefix in environment table` |
 | `chore:` | no release | `chore: bump dev dependencies` |
 | `docs:` | no release | `docs: clarify install steps in README` |
-| `BREAKING CHANGE:` in body or `feat!:` | major bump (X.0.0) | `feat(hello-specthis)!: rename skill to hello-specthis-world` |
+| `BREAKING CHANGE:` in body or `feat!:` | major bump (X.0.0) | `feat(specthis-planning)!: rename skill entry point` |
 
-Use the plugin name as the scope (`feat(hello-specthis): ...`) so commits stay grep-able when more plugins land.
+Use the plugin name as the scope (`feat(specthis-planning): ...`) so commits stay grep-able when more plugins land.
 
 ## Add a new plugin
 
@@ -58,7 +58,7 @@ Today the marketplace ships one plugin. Adding more follows a fixed pattern:
 
 ## Versioning today vs. tomorrow
 
-**Today (one plugin):** a single `release.config.js` runs once per push to `main`. The plugin's `plugin.json` `version` is bumped and one tag (`hello-specthis@vX.Y.Z`) is created.
+**Today (one plugin):** a single `release.config.js` runs once per push to `main`. The plugin's `plugin.json` `version` is bumped and one tag (`specthis-planning@vX.Y.Z`) is created.
 
 **When plugin #2 lands:** running one bump for "any commit anywhere" stops being right — a `fix:` in plugin A would also bump plugin B. Switch to per-plugin scoped releases, e.g.:
 
